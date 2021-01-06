@@ -1,6 +1,6 @@
 <template>
     <div :class="{'sax':todo.completed , 'incomplete':!todo.completed}">
-        <p @click="markComplete">{{ todo.title }}</p>
+        <p @click="markComplete">{{ todo.title }} - {{todo.date}}</p>
         <button @click="$emit('delete-todo', todo.id)">Delete</button>
     </div>
 </template>
