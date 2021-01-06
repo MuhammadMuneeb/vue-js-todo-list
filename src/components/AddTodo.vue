@@ -1,9 +1,16 @@
 <template>
     <div>
         <form @submit="addTodo">
-            <input type="text" v-model="title" name="title">
-            <input type="date" v-model="deadline" name="deadline">
-            <button type="submit">Add</button>
+            <div class="form-group">
+            <label id="title">Task Name</label>
+            <input type="text" v-model="title" name="title" class="form-control">
+            </div>
+            <div class="form-group">
+            <label id="deadline">Task Deadline</label>
+            <input type="date" v-model="deadline" name="deadline" class="form-control">
+            </div>
+              
+            <b-button type="submit" variant="success">Add</b-button>
         </form>
     </div>
 </template>
