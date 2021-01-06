@@ -24,13 +24,21 @@ export default{
             const newTodoObj = {
                 id: uuid.v4(),
                 title: this.title,
-                completed: false
+                completed: false,
+                date: this.dateNow
             }
 
             this.$emit('add-todo', newTodoObj);
             this.title = '';
         }
+    },
+    computed: {
+        dateNow(){
+            var date = new Date();
+            return date.getDate()+'/'+date.getUTCMonth()+1+'/'+date.getFullYear();
+        }
     }
+    
 }
 
 </script>
