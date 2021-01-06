@@ -4,7 +4,7 @@
         <h3>Total Tasks: {{todos.length}}</h3>
         <ul>
             <li v-for="todo in todos" v-bind:key="todo.id" >
-                <Todo v-bind:todo="todo" v-on:delete-todo="$emit('delete-todo',)"/>
+                <Todo v-bind:todo="todo" v-on:delete-todo="$emit('delete-todo',todo.id)"/>
             </li>
         </ul>
     </div>

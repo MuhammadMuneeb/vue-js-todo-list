@@ -2,6 +2,7 @@
     <div>
         <form @submit="addTodo">
             <input type="text" v-model="title" name="title">
+            <input type="date" v-model="deadline" name="deadline">
             <button type="submit">Add</button>
         </form>
     </div>
@@ -14,7 +15,8 @@ export default{
     name: 'AddTodo',
     data(){
         return {
-            title: ''
+            title: '',
+            deadline: ''
         }
     },
     methods: {
@@ -25,11 +27,13 @@ export default{
                 id: uuid.v4(),
                 title: this.title,
                 completed: false,
-                date: this.dateNow
+                date: this.dateNow,
+                deadline: this.deadline
             }
 
             this.$emit('add-todo', newTodoObj);
             this.title = '';
+            this.deadline ='';
         }
     },
     computed: {
