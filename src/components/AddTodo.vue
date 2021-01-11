@@ -1,6 +1,12 @@
 <template>
     <div>
         <form @submit="addTodo">
+         <p v-if="errors.length">
+             <b>Please correct the following:</b>
+             <ul>
+                 <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+             </ul>
+         </p>
             <div class="form-group">
             <label id="title">Task Name</label>
             <input type="text" v-model="title" name="title" class="form-control">
@@ -9,7 +15,6 @@
             <label id="deadline">Task Deadline</label>
             <input type="date" v-model="deadline" name="deadline" class="form-control">
             </div>
-              
             <b-button type="submit" variant="success">Add</b-button>
         </form>
     </div>
@@ -23,13 +28,15 @@ export default{
     data(){
         return {
             title: '',
-            deadline: ''
+            deadline: '',
+            errors: []
         }
     },
     methods: {
         addTodo(e){
             e.preventDefault();
 
+            if(this.title && this.deadline){
             const newTodoObj = {
                 id: uuid.v4(),
                 title: this.title,
@@ -41,6 +48,17 @@ export default{
             this.$emit('add-todo', newTodoObj);
             this.title = '';
             this.deadline ='';
+            this.errors = [];
+                        }
+
+            if(!this.title){
+                this.errors.push('Title Required!');
+            }
+
+            if(!this.deadline){
+                this.errors.push('Deadline required!');
+            }
+            
         }
     },
     computed: {
