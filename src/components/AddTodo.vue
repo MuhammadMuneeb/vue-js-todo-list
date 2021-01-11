@@ -9,11 +9,11 @@
          </p>
             <div class="form-group">
             <label id="title">Task Name</label>
-            <input type="text" v-model="title" name="title" class="form-control">
+            <input type="text" v-model="title" name="title" class="form-control" :class="{'border border-danger':errors.includes('Title Required!')}">
             </div>
             <div class="form-group">
             <label id="deadline">Task Deadline</label>
-            <input type="date" v-model="deadline" name="deadline" class="form-control">
+            <input type="date" v-model="deadline" name="deadline" class="form-control" :class="{'border border-danger':errors.includes('Deadline required!')}">
             </div>
             <b-button type="submit" variant="success">Add</b-button>
         </form>
@@ -29,13 +29,14 @@ export default{
         return {
             title: '',
             deadline: '',
-            errors: []
+            errors:[]
         }
     },
     methods: {
         addTodo(e){
             e.preventDefault();
-
+            this.errors=[];
+            
             if(this.title && this.deadline){
             const newTodoObj = {
                 id: uuid.v4(),
@@ -48,10 +49,10 @@ export default{
             this.$emit('add-todo', newTodoObj);
             this.title = '';
             this.deadline ='';
+            return true;
+        }
             this.errors = [];
-                        }
-
-            if(!this.title){
+            if(!this.title.length){
                 this.errors.push('Title Required!');
             }
 
