@@ -11,11 +11,13 @@
                <th>Actions</th>
             </tr>
             <tbody>
-            <tr v-for="todo in todos" v-bind:key="todo.id">
+            <tr v-for="todo in todos" v-bind:key="todo.id" :class="{'completed':todo.completed}">
                 <td>{{ todo.title }}</td>
                 <td>{{ todo.date }}</td>
                 <td>{{ todo.deadline }}</td>
-                <td><button @click="$emit('delete-todo', todo.id)">Delete</button></td>
+                <td>
+                    <button class="btn btn-primary" @click="completeTask(todo.id)">Mark Completed!</button>
+                    <button class="btn btn-danger" @click="$emit('delete-todo', todo.id)">Delete</button></td>
             </tr>
             <tr>
             </tr>
@@ -36,8 +38,27 @@
         },
         props: [
             "todos"
-        ]
+        ],
+        methods:{
+            completeTask(todo_id){
+                console.log(todo_id);
+                console.log(this.todos[0].id);
+                // for(var i =0;i<this.todos.length;i++){
+                //     if(this.todos[i].id == todo_id){
+                //         this.todos[i].completed = true;
+                //         break;
+                //     }
+                // }
+                var compel = this.todos.filter(function(com){
+                    return com.completed = true
+                })
+                return compel
+            }
+        }
     }
 </script>
 <style scoped>
+.completed{
+    color:green;
+}
 </style>
